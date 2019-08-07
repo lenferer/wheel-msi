@@ -3,7 +3,7 @@ clear all;
 S=[];
 k=0;
 % M = dlmread(filename) reads an ASCII-delimited numeric data file into matrix M. The dlmread function detects the delimiter from the file and treats repeated white spaces as a single delimiter.
-X = dlmread('G:\DSP project\drive-download-20160921T174509Z\Mayank_ssvep\r9.txt');
+X = dlmread('test.txt', ' ', 1, 0);
 % [b, a] = butter (n, Wn, ftype) создает фильтр Баттерворта нижних, верхних, полосовых или полосовых помех в зависимости от значения ftype и количества элементов Wn. Результирующие полосовые и полосовые конструкции имеют порядок 2n.
 % Примечание. Информацию о численных проблемах, влияющих на формирование передаточной функции, см. В разделе «Ограничения».
 [b,a] = butter(4,[5/256 30/256],'bandpass');
@@ -13,6 +13,7 @@ X = filter(b,a,X);
 z_act=zeros(140,1);
 i=1;
 z_act=[];
+
 % for i=1:140
 % X = ones (sz1, ..., szN) возвращает массив sz1 by -...- by-szN, где sz1, ..., szN указывает размер каждого измерения. Например, ones (2,3) возвращает массив единиц 2 на 3.
 z_req=[ones(20,1)*1;ones(20,1)*2;ones(20,1)*3;ones(20,1)*4;ones(20,1)*5;ones(20,1)*6;ones(20,1)*7];%
@@ -58,7 +59,7 @@ i=1;
 while(i<141)
     for j=1:7;%loop to find the index number
         if S(i,j)==max(S(i,:))
-%            display(j);
+            % display(j);
             z_act(i)=j;
            
         end
